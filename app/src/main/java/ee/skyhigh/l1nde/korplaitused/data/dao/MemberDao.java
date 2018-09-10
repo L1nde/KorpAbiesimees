@@ -24,4 +24,7 @@ public interface MemberDao {
 
     @Query("SELECT * FROM member")
     LiveData<List<MemberEntity>> getAllMembers();
+
+//    @Query("SELECT * FROM member WHERE ")
+//    LiveData<MemberEntity> getMemberId(String type, String firstname, String lastname);
 }

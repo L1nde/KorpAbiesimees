@@ -3,6 +3,7 @@ package ee.skyhigh.l1nde.korplaitused.data.entites;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -11,9 +12,6 @@ public class LaitusedEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-
-    @ColumnInfo(name = "date")
-    private String date;
 
     @ColumnInfo(name = "memberId")
     private int memberId;
@@ -36,9 +34,8 @@ public class LaitusedEntity {
     @ColumnInfo(name = "kohal")
     private boolean kohal = false;
 
-    public LaitusedEntity(int id, String date, int memberId, int meetingId, int laitused, int markused, boolean hilinemine, boolean vabandamine, boolean kohal) {
+    public LaitusedEntity(int id, int memberId, int meetingId, int laitused, int markused, boolean hilinemine, boolean vabandamine, boolean kohal) {
         this.id = id;
-        this.date = date;
         this.memberId = memberId;
         this.meetingId = meetingId;
         this.laitused = laitused;
@@ -46,6 +43,12 @@ public class LaitusedEntity {
         this.hilinemine = hilinemine;
         this.vabandamine = vabandamine;
         this.kohal = kohal;
+    }
+
+    @Ignore
+    public LaitusedEntity(int memberId, int meetingId) {
+        this.memberId = memberId;
+        this.meetingId = meetingId;
     }
 
     public int getMeetingId() {
@@ -56,13 +59,6 @@ public class LaitusedEntity {
         this.meetingId = meetingId;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public int getLaitused() {
         return laitused;

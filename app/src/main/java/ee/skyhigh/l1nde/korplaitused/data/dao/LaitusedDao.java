@@ -29,6 +29,9 @@ public interface LaitusedDao {
     @Query("SELECT * FROM laitused")
     LiveData<List<LaitusedEntity>> getAllLaitused();
 
-    @Query("SELECT * FROM laitused WHERE id=:laitusId")
-    LiveData<List<LaitusedEntity>> findLaitusedForMember(final int laitusId);
+    @Query("SELECT * FROM laitused WHERE id=:memberId")
+    LiveData<List<LaitusedEntity>> findLaitusedForMember(final int memberId);
+
+    @Query("SELECT * FROM laitused WHERE memberId=:memberId and meetingId=:meetingId")
+    LaitusedEntity findLaitusForMemberAndMeeting(int memberId, int meetingId);
 }

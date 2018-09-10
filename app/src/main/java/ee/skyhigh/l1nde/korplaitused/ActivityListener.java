@@ -1,5 +1,7 @@
 package ee.skyhigh.l1nde.korplaitused;
 
-public interface ActivityInterface {
-    void 
+import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
+
+public interface ActivityListener {
+    void updateDatabase(NewMeetingAdapter.ViewHolder holder, MemberEntity member);
 }

@@ -49,6 +49,14 @@ public class KorpViewModel extends AndroidViewModel {
         return meetings;
     }
 
+    public LaitusedEntity findLaitusForMemberAndMeeting(int memberId, int meetingId){
+        return laitusedRepository.findLaitusForMemberAndMeeting(memberId, meetingId);
+    }
+
+    public void updateLaitus(LaitusedEntity laitusedEntity){
+        laitusedRepository.update(laitusedEntity);
+    }
+
     public void insertMember(MemberEntity memberEntity) {
         membersRepository.insert(memberEntity);
     }

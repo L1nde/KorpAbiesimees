@@ -33,8 +33,10 @@ public class AddMeeting extends AppCompatActivity {
         RadioButton checkedRadio = findViewById(meetingTypeGroup.getCheckedRadioButtonId());
 
         if (!date.getText().toString().isEmpty() && checkedRadio != null){
-            korpViewModel.insertMeeting(new MeetingEntity(date.getText().toString(), checkedRadio.getText().toString()));
+            MeetingEntity meetingEntity = new MeetingEntity(date.getText().toString(), checkedRadio.getText().toString());
+            korpViewModel.insertMeeting(meetingEntity);
             Intent intent = new Intent(this, NewMeeting.class);
+            intent.putExtra("meetingId", meetingEntity.getId());
             startActivity(intent);
             finish();
         }

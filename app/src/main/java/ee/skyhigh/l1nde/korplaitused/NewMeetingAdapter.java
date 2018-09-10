@@ -24,16 +24,16 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
 
     private int expandedPos = -1;
 
-    private Context context;
+    private ActivityListener listener;
 
-    public NewMeetingAdapter(Context context) {
-        this.context = context;
+    public NewMeetingAdapter(ActivityListener listener) {
+        this.listener = listener;
 
     }
 
 
     @Override
-    public NewMeetingAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int i) {
+    public NewMeetingAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, final int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.new_meeting_member_row_item, viewGroup, false);
         final ViewHolder holder = new ViewHolder(view);
         holder.itemView.setTag(holder);
@@ -52,7 +52,7 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
         holder.attendance.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.i(this.getClass().getSimpleName(), holder.firstnameField.getText().toString());
+                listener.updateDatabase(holder, members.get(i));
             }
         });
         return holder;
