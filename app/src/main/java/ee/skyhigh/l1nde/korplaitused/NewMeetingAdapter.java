@@ -1,11 +1,16 @@
 package ee.skyhigh.l1nde.korplaitused;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,15 +24,19 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
 
     private int expandedPos = -1;
 
-    public NewMeetingAdapter() {
+    private Context context;
+
+    public NewMeetingAdapter(Context context) {
+        this.context = context;
 
     }
 
 
     @Override
-    public NewMeetingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public NewMeetingAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.new_meeting_member_row_item, viewGroup, false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.itemView.setTag(holder);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,9 +49,15 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
 
             }
         });
-        holder.itemView.setTag(holder);
+        holder.attendance.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.i(this.getClass().getSimpleName(), holder.firstnameField.getText().toString());
+            }
+        });
         return holder;
     }
+
 
     @Override
     public void onBindViewHolder(NewMeetingAdapter.ViewHolder viewHolder, int pos) {
@@ -74,6 +89,9 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
         private TextView firstnameField;
         private TextView lastnameField;
         private LinearLayout expandedLinear;
+        private RadioGroup attendance;
+        private LinearLayout laitusLinear;
+        private LinearLayout markusLinear;
 
         public ViewHolder(View view) {
             super(view);
@@ -81,6 +99,9 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
             firstnameField = view.findViewById(R.id.firstnameField);
             lastnameField = view.findViewById(R.id.lastnameField);
             expandedLinear = view.findViewById(R.id.expandedLinear);
+            attendance = view.findViewById(R.id.attendanceGroup);
+            laitusLinear = view.findViewById(R.id.laitusLinear);
+            markusLinear = view.findViewById(R.id.markusLinear);
         }
 
         public LinearLayout getExpandedLinear() {
@@ -91,12 +112,25 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
             return typeField;
         }
 
+        public LinearLayout getLaitusLinear() {
+            return laitusLinear;
+        }
+
+        public LinearLayout getMarkusLinear() {
+            return markusLinear;
+        }
+
         public TextView getFirstnameField() {
             return firstnameField;
         }
 
+        public RadioGroup getAttendance() {
+            return attendance;
+        }
+
         public TextView getLastnameField() {
             return lastnameField;
+
         }
     }
 

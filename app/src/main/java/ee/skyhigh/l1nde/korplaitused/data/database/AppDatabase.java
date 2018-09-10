@@ -16,7 +16,7 @@ import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 
 
-@Database(entities = {MemberEntity.class, LaitusedEntity.class, MeetingEntity.class}, version = 3, exportSchema = false)
+@Database(entities = {MemberEntity.class, LaitusedEntity.class, MeetingEntity.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;

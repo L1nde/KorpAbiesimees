@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -42,7 +43,7 @@ public class NewMeeting extends AppCompatActivity {
         });
     }
 
-    public void saveAttendance(View view){
+//    public void saveAttendance(View view){
 //        EditText firstname = findViewById(R.id.firstname);
 //        EditText lastname = findViewById(R.id.lastname);
 //
@@ -54,5 +55,14 @@ public class NewMeeting extends AppCompatActivity {
 //            korpViewModel.insertMember(new MemberEntity(firstname.getText().toString(), lastname.getText().toString(), checkedRadio.getText().toString()));
 //            finish();
 //        }
+//    }
+
+    public void saveAttendance(View view){
+        Log.i(this.getLocalClassName(), "Saving attendance");
+
+    }
+
+    private void createNewLaitus(){
+
     }
 }
