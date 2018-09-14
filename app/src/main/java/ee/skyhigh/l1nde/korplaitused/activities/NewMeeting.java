@@ -1,4 +1,4 @@
-package ee.skyhigh.l1nde.korplaitused;
+package ee.skyhigh.l1nde.korplaitused.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -12,12 +12,14 @@ import android.util.Log;
 
 import java.util.List;
 
-import ee.skyhigh.l1nde.korplaitused.adapter.NewMeetingAdapter;
+import ee.skyhigh.l1nde.korplaitused.R;
+import ee.skyhigh.l1nde.korplaitused.adapters.NewMeetingAdapter;
 import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
+import ee.skyhigh.l1nde.korplaitused.listeners.ActivityListener;
 
-public class NewMeeting extends AppCompatActivity implements ActivityListener{
+public class NewMeeting extends AppCompatActivity implements ActivityListener {
 
     private KorpViewModel korpViewModel;
 
@@ -48,8 +50,8 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
     }
 
     @Override
-    public void updateAttendanceDB(MemberEntity member, String checked) {
-        LaitusedEntity laitus = createFindLaitus(member.getId());
+    public void updateAttendanceDB(long memberId, String checked) {
+        LaitusedEntity laitus = createFindLaitus(memberId);
         switch (checked){
             case "Kohal":
                 laitus.setKohal(true);
@@ -71,32 +73,32 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
     }
 
     @Override
-    public void updateLateDB(MemberEntity member, boolean checked) {
-        LaitusedEntity laitus = createFindLaitus(member.getId());
+    public void updateLateDB(long memberId, boolean checked) {
+        LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setHilinemine(checked);
         korpViewModel.updateLaitus(laitus);
         Log.i(this.getLocalClassName(), "Late updated");
     }
 
     @Override
-    public void updateLaitusIncDB(MemberEntity member) {
-        LaitusedEntity laitus = createFindLaitus(member.getId());
+    public void updateLaitusIncDB(long memberId) {
+        LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setLaitused(laitus.getLaitused() + 1);
         korpViewModel.updateLaitus(laitus);
         Log.i(this.getLocalClassName(), "Laitus+ updated");
     }
 
     @Override
-    public void updateLaitusDecDB(MemberEntity member) {
-        LaitusedEntity laitus = createFindLaitus(member.getId());
+    public void updateLaitusDecDB(long memberId) {
+        LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setLaitused(laitus.getLaitused() - 1);
         korpViewModel.updateLaitus(laitus);
         Log.i(this.getLocalClassName(), "Laitus- updated");
     }
 
     @Override
-    public void updateMarkusIncDB(MemberEntity member) {
-        LaitusedEntity laitus = createFindLaitus(member.getId());
+    public void updateMarkusIncDB(long memberId) {
+        LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setMarkused(laitus.getMarkused() + 1);
         korpViewModel.updateLaitus(laitus);
         Log.i(this.getLocalClassName(), "Markus+ updated");
@@ -104,8 +106,8 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
     }
 
     @Override
-    public void updateMarkusDecDB(MemberEntity member) {
-        LaitusedEntity laitus = createFindLaitus(member.getId());
+    public void updateMarkusDecDB(long memberId) {
+        LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setMarkused(laitus.getMarkused() - 1);
         korpViewModel.updateLaitus(laitus);
         Log.i(this.getLocalClassName(), "Markus- updated");

@@ -9,19 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Home">
+        <activity android:name=".activities.Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Meetings" />
-        <activity android:name=".Members" />
-        <activity android:name=".AddMember" />
-        <activity android:name=".AddMeeting" />
-        <activity android:name=".NewMeeting" />
-        <activity android:name=".SingleMember"></activity>
+        <activity android:name=".activities.Meetings" />
+        <activity android:name=".activities.Members" />
+        <activity android:name=".activities.AddMember" />
+        <activity android:name=".activities.AddMeeting" />
+        <activity android:name=".activities.NewMeeting" />
+        <activity android:name=".activities.SingleMember"></activity>
     </application>
 
 </manifest>

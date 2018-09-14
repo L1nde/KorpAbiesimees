@@ -1,4 +1,4 @@
-package ee.skyhigh.l1nde.korplaitused;
+package ee.skyhigh.l1nde.korplaitused.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -12,7 +12,8 @@ import android.view.View;
 
 import java.util.List;
 
-import ee.skyhigh.l1nde.korplaitused.adapter.MembersAdapter;
+import ee.skyhigh.l1nde.korplaitused.R;
+import ee.skyhigh.l1nde.korplaitused.adapters.MembersAdapter;
 import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 

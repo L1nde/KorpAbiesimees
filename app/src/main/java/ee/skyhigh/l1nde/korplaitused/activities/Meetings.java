@@ -1,4 +1,4 @@
-package ee.skyhigh.l1nde.korplaitused;
+package ee.skyhigh.l1nde.korplaitused.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -13,11 +13,13 @@ import android.view.View;
 
 import java.util.List;
 
-import ee.skyhigh.l1nde.korplaitused.adapter.MeetingsAdapter;
+import ee.skyhigh.l1nde.korplaitused.R;
+import ee.skyhigh.l1nde.korplaitused.adapters.MeetingsAdapter;
 import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
+import ee.skyhigh.l1nde.korplaitused.listeners.ContextListener;
 
-public class Meetings extends AppCompatActivity implements ContextListener{
+public class Meetings extends AppCompatActivity implements ContextListener {
 
     private KorpViewModel korpViewModel;
 

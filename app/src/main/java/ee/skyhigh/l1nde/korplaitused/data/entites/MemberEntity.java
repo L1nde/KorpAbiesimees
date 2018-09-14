@@ -48,4 +48,14 @@ public class MemberEntity {
     public String getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "MemberEntity{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

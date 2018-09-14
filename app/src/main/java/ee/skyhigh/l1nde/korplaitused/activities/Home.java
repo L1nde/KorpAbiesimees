@@ -1,9 +1,11 @@
-package ee.skyhigh.l1nde.korplaitused;
+package ee.skyhigh.l1nde.korplaitused.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import ee.skyhigh.l1nde.korplaitused.R;
 
 public class Home extends AppCompatActivity {
 
