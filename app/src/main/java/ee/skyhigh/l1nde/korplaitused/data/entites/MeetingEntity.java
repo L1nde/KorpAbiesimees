@@ -10,7 +10,7 @@ public class MeetingEntity {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int id;
+    private long id;
 
     @ColumnInfo(name = "date")
     private String date;
@@ -18,7 +18,7 @@ public class MeetingEntity {
     @ColumnInfo(name = "type")
     private String type;
 
-    public MeetingEntity(int id, String date, String type) {
+    public MeetingEntity(long id, String date, String type) {
         this.id = id;
         this.date = date;
         this.type = type;
@@ -30,12 +30,8 @@ public class MeetingEntity {
         this.type = type;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDate() {

@@ -111,4 +111,18 @@ public class LaitusedEntity {
     public void setMemberId(int memberId) {
         this.memberId = memberId;
     }
+
+    @Override
+    public String toString() {
+        return "LaitusedEntity{" +
+                "id=" + id +
+                ", memberId=" + memberId +
+                ", meetingId=" + meetingId +
+                ", laitused=" + laitused +
+                ", markused=" + markused +
+                ", hilinemine=" + hilinemine +
+                ", vabandamine=" + vabandamine +
+                ", kohal=" + kohal +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package ee.skyhigh.l1nde.korplaitused;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import ee.skyhigh.l1nde.korplaitused.adapter.MeetingsAdapter;
 import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
 
-public class Meetings extends AppCompatActivity {
+public class Meetings extends AppCompatActivity implements ContextListener{
 
     private KorpViewModel korpViewModel;
 
@@ -29,7 +30,7 @@ public class Meetings extends AppCompatActivity {
         meetingsList.setHasFixedSize(true);
 
         meetingsList.setLayoutManager(new LinearLayoutManager(this));
-        final MeetingsAdapter adapter = new MeetingsAdapter();
+        final MeetingsAdapter adapter = new MeetingsAdapter(this);
         meetingsList.setAdapter(adapter);
 
         korpViewModel = ViewModelProviders.of(this).get(KorpViewModel.class);
@@ -44,5 +45,10 @@ public class Meetings extends AppCompatActivity {
     public void addNewMeeting(View view){
         Intent intent = new Intent(this, AddMeeting.class);
         startActivity(intent);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

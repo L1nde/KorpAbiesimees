@@ -1,5 +1,6 @@
 package ee.skyhigh.l1nde.korplaitused;
 
+import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 
 public interface ActivityListener {
@@ -9,4 +10,5 @@ public interface ActivityListener {
     void updateLaitusDecDB(MemberEntity member);
     void updateMarkusIncDB(MemberEntity member);
     void updateMarkusDecDB(MemberEntity member);
+    LaitusedEntity createFindLaitus(long memberId);
 }

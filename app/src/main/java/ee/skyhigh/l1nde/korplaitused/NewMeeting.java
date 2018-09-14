@@ -53,12 +53,15 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
         switch (checked){
             case "Kohal":
                 laitus.setKohal(true);
+                laitus.setVabandamine(false);
                 break;
             case "Vabandas":
+                laitus.setKohal(false);
                 laitus.setVabandamine(true);
                 break;
             case "Puudus":
                 laitus.setKohal(false);
+                laitus.setVabandamine(false);
                 break;
             default:
                 Log.e(this.getLocalClassName(), "Attendance error");
@@ -109,7 +112,8 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
 
     }
 
-    private LaitusedEntity createFindLaitus(long memberId){
+    @Override
+    public LaitusedEntity createFindLaitus(long memberId){
         LaitusedEntity laitus = korpViewModel.findLaitusForMemberAndMeeting(memberId, meetingId);
         if (laitus == null){
             laitus = new LaitusedEntity(memberId, meetingId);

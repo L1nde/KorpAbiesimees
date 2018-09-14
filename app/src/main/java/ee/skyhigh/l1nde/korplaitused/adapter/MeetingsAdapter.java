@@ -1,5 +1,6 @@
 package ee.skyhigh.l1nde.korplaitused.adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ee.skyhigh.l1nde.korplaitused.ContextListener;
+import ee.skyhigh.l1nde.korplaitused.Meetings;
+import ee.skyhigh.l1nde.korplaitused.NewMeeting;
 import ee.skyhigh.l1nde.korplaitused.R;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
 
@@ -17,15 +21,27 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ViewHo
 
     private List<MeetingEntity> meetings;
 
-    public MeetingsAdapter() {
+    private ContextListener contextListener;
+
+    public MeetingsAdapter(ContextListener contextListener) {
+        this.contextListener = contextListener;
 
     }
 
 
     @Override
-    public MeetingsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MeetingsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, final int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meeting_row_item, viewGroup, false);
-        return new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(contextListener.getContext(), NewMeeting.class);
+                intent.putExtra("meetingId", meetings.get(i).getId());
+                contextListener.getContext().startActivity(intent);
+            }
+        });
+        return holder;
     }
 
     @Override

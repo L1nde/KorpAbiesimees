@@ -16,11 +16,16 @@ import java.util.List;
 
 import ee.skyhigh.l1nde.korplaitused.ActivityListener;
 import ee.skyhigh.l1nde.korplaitused.R;
+import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 
 public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.ViewHolder> {
 
     private List<MemberEntity> members;
+
+    private int laitus;
+
+    private int markus;
 
     private int expandedPos = -1;
 
@@ -45,6 +50,10 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
                     notifyItemChanged(expandedPos);
                 }
                 expandedPos = viewHolder.getPosition();
+                LaitusedEntity laitus = listener.createFindLaitus(members.get(i).getId());
+                System.out.println(laitus);
+                viewHolder.laitusNr.setText(String.valueOf(laitus.getLaitused()));
+                viewHolder.markusNr.setText(String.valueOf(laitus.getMarkused()));
                 notifyItemChanged(expandedPos);
 
             }
@@ -95,6 +104,8 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
         viewHolder.getTypeField().setText(memberEntity.getType());
         viewHolder.getFirstnameField().setText(memberEntity.getFirstname());
         viewHolder.getLastnameField().setText(memberEntity.getLastname());
+        ((TextView) viewHolder.laitusLinear.findViewById(R.id.laitusNr)).setText(String.valueOf(laitus));
+        ((TextView) viewHolder.markusLinear.findViewById(R.id.markusNr)).setText(String.valueOf(markus));
 
         if (pos == expandedPos){
             viewHolder.getExpandedLinear().setVisibility(View.VISIBLE);
@@ -106,6 +117,14 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
     public void setMembers(List<MemberEntity> members){
         this.members = members;
         notifyDataSetChanged();
+    }
+
+    public void setLaitus(int laitus) {
+        this.laitus = laitus;
+    }
+
+    public void setMarkus(int markus) {
+        this.markus = markus;
     }
 
     @Override
@@ -122,6 +141,8 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
         private RadioGroup attendance;
         private LinearLayout laitusLinear;
         private LinearLayout markusLinear;
+        private TextView laitusNr;
+        private TextView markusNr;
 
         public ViewHolder(View view) {
             super(view);
@@ -132,6 +153,8 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
             attendance = view.findViewById(R.id.attendanceGroup);
             laitusLinear = view.findViewById(R.id.laitusLinear);
             markusLinear = view.findViewById(R.id.markusLinear);
+            laitusNr = view.findViewById(R.id.laitusNr);
+            markusNr = view.findViewById(R.id.markusNr);
         }
 
         public LinearLayout getExpandedLinear() {
