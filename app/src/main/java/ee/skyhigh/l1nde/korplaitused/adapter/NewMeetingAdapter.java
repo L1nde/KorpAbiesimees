@@ -1,13 +1,12 @@
-package ee.skyhigh.l1nde.korplaitused;
+package ee.skyhigh.l1nde.korplaitused.adapter;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,7 +14,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
+import ee.skyhigh.l1nde.korplaitused.ActivityListener;
+import ee.skyhigh.l1nde.korplaitused.R;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 
 public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.ViewHolder> {
@@ -52,7 +52,37 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
         holder.attendance.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                listener.updateDatabase(holder, members.get(i));
+                listener.updateAttendanceDB(members.get(i), ((RadioButton) holder.attendance.findViewById(holder.attendance.getCheckedRadioButtonId())).getText().toString());
+            }
+        });
+        ((CheckBox) holder.expandedLinear.findViewById(R.id.late)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                listener.updateLateDB(members.get(i), isChecked);
+            }
+        });
+        holder.laitusLinear.findViewById(R.id.addLButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.updateLaitusIncDB(members.get(i));
+            }
+        });
+        holder.laitusLinear.findViewById(R.id.removeLButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.updateLaitusDecDB(members.get(i));
+            }
+        });
+        holder.markusLinear.findViewById(R.id.addMButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.updateMarkusIncDB(members.get(i));
+            }
+        });
+        holder.markusLinear.findViewById(R.id.removeMButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.updateMarkusDecDB(members.get(i));
             }
         });
         return holder;

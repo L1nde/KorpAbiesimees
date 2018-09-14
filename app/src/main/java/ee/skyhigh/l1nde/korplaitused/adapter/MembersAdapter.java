@@ -1,4 +1,4 @@
-package ee.skyhigh.l1nde.korplaitused;
+package ee.skyhigh.l1nde.korplaitused.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ee.skyhigh.l1nde.korplaitused.R;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 
 

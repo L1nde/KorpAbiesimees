@@ -9,13 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import java.util.List;
 
+import ee.skyhigh.l1nde.korplaitused.adapter.NewMeetingAdapter;
 import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
@@ -24,7 +21,7 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
 
     private KorpViewModel korpViewModel;
 
-    private int meetingId;
+    private long meetingId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +29,7 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
         setContentView(R.layout.activity_new_meeting);
 
         Intent intent = getIntent();
-        meetingId = intent.getIntExtra("meetingId", -1);
+        meetingId = intent.getLongExtra("meetingId", -1);
 
         RecyclerView membersList = findViewById(R.id.membersList);
         membersList.setHasFixedSize(true);
@@ -51,13 +48,9 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
     }
 
     @Override
-    public void updateDatabase(NewMeetingAdapter.ViewHolder holder, MemberEntity member) {
-        LaitusedEntity laitus = korpViewModel.findLaitusForMemberAndMeeting(member.getId(), meetingId);
-        if (laitus == null){
-            laitus = new LaitusedEntity(member.getId(), meetingId);
-            korpViewModel.insertLaitus(laitus);
-        }
-        switch (((RadioButton) findViewById(holder.getAttendance().getCheckedRadioButtonId())).getText().toString()){
+    public void updateAttendanceDB(MemberEntity member, String checked) {
+        LaitusedEntity laitus = createFindLaitus(member.getId());
+        switch (checked){
             case "Kohal":
                 laitus.setKohal(true);
                 break;
@@ -71,10 +64,57 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener{
                 Log.e(this.getLocalClassName(), "Attendance error");
         }
         korpViewModel.updateLaitus(laitus);
-        Log.i(this.getLocalClassName(), "Attendance error");
+        Log.i(this.getLocalClassName(), "Attendance updated");
     }
 
-    private void createNewLaitus(){
+    @Override
+    public void updateLateDB(MemberEntity member, boolean checked) {
+        LaitusedEntity laitus = createFindLaitus(member.getId());
+        laitus.setHilinemine(checked);
+        korpViewModel.updateLaitus(laitus);
+        Log.i(this.getLocalClassName(), "Late updated");
+    }
 
+    @Override
+    public void updateLaitusIncDB(MemberEntity member) {
+        LaitusedEntity laitus = createFindLaitus(member.getId());
+        laitus.setLaitused(laitus.getLaitused() + 1);
+        korpViewModel.updateLaitus(laitus);
+        Log.i(this.getLocalClassName(), "Laitus+ updated");
+    }
+
+    @Override
+    public void updateLaitusDecDB(MemberEntity member) {
+        LaitusedEntity laitus = createFindLaitus(member.getId());
+        laitus.setLaitused(laitus.getLaitused() - 1);
+        korpViewModel.updateLaitus(laitus);
+        Log.i(this.getLocalClassName(), "Laitus- updated");
+    }
+
+    @Override
+    public void updateMarkusIncDB(MemberEntity member) {
+        LaitusedEntity laitus = createFindLaitus(member.getId());
+        laitus.setMarkused(laitus.getMarkused() + 1);
+        korpViewModel.updateLaitus(laitus);
+        Log.i(this.getLocalClassName(), "Markus+ updated");
+
+    }
+
+    @Override
+    public void updateMarkusDecDB(MemberEntity member) {
+        LaitusedEntity laitus = createFindLaitus(member.getId());
+        laitus.setMarkused(laitus.getMarkused() - 1);
+        korpViewModel.updateLaitus(laitus);
+        Log.i(this.getLocalClassName(), "Markus- updated");
+
+    }
+
+    private LaitusedEntity createFindLaitus(long memberId){
+        LaitusedEntity laitus = korpViewModel.findLaitusForMemberAndMeeting(memberId, meetingId);
+        if (laitus == null){
+            laitus = new LaitusedEntity(memberId, meetingId);
+            korpViewModel.insertLaitus(laitus);
+        }
+        return laitus;
     }
 }

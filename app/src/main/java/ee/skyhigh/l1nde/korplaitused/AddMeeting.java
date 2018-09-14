@@ -34,9 +34,9 @@ public class AddMeeting extends AppCompatActivity {
 
         if (!date.getText().toString().isEmpty() && checkedRadio != null){
             MeetingEntity meetingEntity = new MeetingEntity(date.getText().toString(), checkedRadio.getText().toString());
-            korpViewModel.insertMeeting(meetingEntity);
+            long id = korpViewModel.insertMeeting(meetingEntity);
             Intent intent = new Intent(this, NewMeeting.class);
-            intent.putExtra("meetingId", meetingEntity.getId());
+            intent.putExtra("meetingId", id);
             startActivity(intent);
             finish();
         }

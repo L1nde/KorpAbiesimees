@@ -3,8 +3,10 @@ package ee.skyhigh.l1nde.korplaitused.data.repositories;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import ee.skyhigh.l1nde.korplaitused.data.dao.MemberDao;
 import ee.skyhigh.l1nde.korplaitused.data.database.AppDatabase;
@@ -26,11 +28,16 @@ public class MembersRepository {
         return members;
     }
 
-    public void insert(MemberEntity memberEntity){
-        new insertAsyncTask(memberDao).execute(memberEntity);
+    public Long insert(MemberEntity memberEntity){
+        try {
+            return new insertAsyncTask(memberDao).execute(memberEntity).get();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.e(this.getClass().getSimpleName(), "Member insert error", e);
+        }
+        return null;
 
     }
-    private static class insertAsyncTask extends AsyncTask<MemberEntity, Void, Void>{
+    private static class insertAsyncTask extends AsyncTask<MemberEntity, Void, Long>{
 
         private MemberDao memberDao;
 
@@ -39,9 +46,8 @@ public class MembersRepository {
         }
 
         @Override
-        protected Void doInBackground(MemberEntity... memberEntities) {
-            memberDao.insert(memberEntities[0]);
-            return null;
+        protected Long doInBackground(MemberEntity... memberEntities) {
+            return memberDao.insert(memberEntities[0]);
         }
     }
 

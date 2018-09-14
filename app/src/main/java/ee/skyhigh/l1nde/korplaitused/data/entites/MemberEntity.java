@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "member")
 public class MemberEntity {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
     @ColumnInfo(name = "firstname")
     private String firstname;
@@ -19,7 +19,7 @@ public class MemberEntity {
     @ColumnInfo(name = "type")
     private String type;
 
-    public MemberEntity(int id, String firstname, String lastname, String type) {
+    public MemberEntity(long id, String firstname, String lastname, String type) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -33,7 +33,7 @@ public class MemberEntity {
         this.type = type;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

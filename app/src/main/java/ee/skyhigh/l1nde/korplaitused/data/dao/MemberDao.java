@@ -14,7 +14,7 @@ import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 public interface MemberDao {
 
     @Insert
-    void insert(MemberEntity memberEntity);
+    long insert(MemberEntity memberEntity);
 
     @Delete
     void delete(MemberEntity memberEntity);

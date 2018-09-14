@@ -12,6 +12,7 @@ import android.view.View;
 
 import java.util.List;
 
+import ee.skyhigh.l1nde.korplaitused.adapter.MeetingsAdapter;
 import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
 

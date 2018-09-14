@@ -14,7 +14,7 @@ import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
 public interface MeetingDao {
 
     @Insert
-    void insert(MeetingEntity meetingEntity);
+    long insert(MeetingEntity meetingEntity);
 
     @Delete
     void delete(MeetingEntity meetingEntity);

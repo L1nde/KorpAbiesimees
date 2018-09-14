@@ -3,6 +3,7 @@ package ee.skyhigh.l1nde.korplaitused.data.repositories;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+import android.os.Debug;
 import android.util.Log;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class LaitusedRepository {
         return laitused;
     }
 
-    public LaitusedEntity findLaitusForMemberAndMeeting(int memberId, int meetingId){
+    public LaitusedEntity findLaitusForMemberAndMeeting(long memberId, long meetingId){
         try {
             return new selectAsyncTask(memberId, meetingId, laitusedDao).execute().get();
         } catch (InterruptedException | ExecutionException e) {
@@ -37,8 +38,13 @@ public class LaitusedRepository {
         return null;
     }
 
-    public void insert(LaitusedEntity laitusedEntity){
-        new insertAsyncTask(laitusedDao).execute(laitusedEntity);
+    public Long insert(LaitusedEntity laitusedEntity){
+        try {
+            return new insertAsyncTask(laitusedDao).execute(laitusedEntity).get();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.e(this.getClass().getSimpleName(), "Insert error", e);
+        }
+        return null;
 
     }
 
@@ -63,12 +69,12 @@ public class LaitusedRepository {
 
     private static class selectAsyncTask extends AsyncTask<Void, Void, LaitusedEntity>{
 
-        private int memberId;
-        private int meetingId;
+        private long memberId;
+        private long meetingId;
 
         private LaitusedDao laitusedDao;
 
-        public selectAsyncTask(int memberId, int meetingId, LaitusedDao laitusedDao) {
+        public selectAsyncTask(long memberId, long meetingId, LaitusedDao laitusedDao) {
             this.memberId = memberId;
             this.meetingId = meetingId;
             this.laitusedDao = laitusedDao;
@@ -80,7 +86,7 @@ public class LaitusedRepository {
         }
     }
 
-    private static class insertAsyncTask extends AsyncTask<LaitusedEntity, Void, Void>{
+    private static class insertAsyncTask extends AsyncTask<LaitusedEntity, Void, Long>{
 
         private LaitusedDao laitusedDao;
 
@@ -89,7 +95,7 @@ public class LaitusedRepository {
         }
 
         @Override
-        protected Void doInBackground(LaitusedEntity... laitusedEntities) {
+        protected Long doInBackground(LaitusedEntity... laitusedEntities) {
             laitusedDao.insert(laitusedEntities[0]);
             return null;
         }

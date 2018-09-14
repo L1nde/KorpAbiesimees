@@ -49,7 +49,7 @@ public class KorpViewModel extends AndroidViewModel {
         return meetings;
     }
 
-    public LaitusedEntity findLaitusForMemberAndMeeting(int memberId, int meetingId){
+    public LaitusedEntity findLaitusForMemberAndMeeting(long memberId, long meetingId){
         return laitusedRepository.findLaitusForMemberAndMeeting(memberId, meetingId);
     }
 
@@ -57,15 +57,15 @@ public class KorpViewModel extends AndroidViewModel {
         laitusedRepository.update(laitusedEntity);
     }
 
-    public void insertMember(MemberEntity memberEntity) {
-        membersRepository.insert(memberEntity);
+    public long insertMember(MemberEntity memberEntity) {
+        return membersRepository.insert(memberEntity);
     }
 
-    public void insertLaitus(LaitusedEntity laitusedEntity) {
-        laitusedRepository.insert(laitusedEntity);
+    public Long insertLaitus(LaitusedEntity laitusedEntity) {
+        return laitusedRepository.insert(laitusedEntity);
     }
 
-    public void insertMeeting(MeetingEntity meetingEntity) {
-        meetingsRepository.insert(meetingEntity);
+    public long insertMeeting(MeetingEntity meetingEntity) {
+        return meetingsRepository.insert(meetingEntity);
     }
 }

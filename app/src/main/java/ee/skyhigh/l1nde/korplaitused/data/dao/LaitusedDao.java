@@ -15,7 +15,7 @@ import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 public interface LaitusedDao {
 
     @Insert
-    void insert(LaitusedEntity laitusedEntity);
+    long insert(LaitusedEntity laitusedEntity);
 
     @Update
     void update(LaitusedEntity... repos);
@@ -33,5 +33,5 @@ public interface LaitusedDao {
     LiveData<List<LaitusedEntity>> findLaitusedForMember(final int memberId);
 
     @Query("SELECT * FROM laitused WHERE memberId=:memberId and meetingId=:meetingId")
-    LaitusedEntity findLaitusForMemberAndMeeting(int memberId, int meetingId);
+    LaitusedEntity findLaitusForMemberAndMeeting(long memberId, long meetingId);
 }

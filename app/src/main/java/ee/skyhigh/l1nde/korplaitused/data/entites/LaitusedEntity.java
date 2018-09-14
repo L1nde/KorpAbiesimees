@@ -14,10 +14,10 @@ public class LaitusedEntity {
     private int id;
 
     @ColumnInfo(name = "memberId")
-    private int memberId;
+    private long memberId;
 
     @ColumnInfo(name = "meetingId")
-    private int meetingId;
+    private long meetingId;
 
     @ColumnInfo(name = "laitused")
     private int laitused;
@@ -34,7 +34,7 @@ public class LaitusedEntity {
     @ColumnInfo(name = "kohal")
     private boolean kohal = false;
 
-    public LaitusedEntity(int id, int memberId, int meetingId, int laitused, int markused, boolean hilinemine, boolean vabandamine, boolean kohal) {
+    public LaitusedEntity(int id, long memberId, long meetingId, int laitused, int markused, boolean hilinemine, boolean vabandamine, boolean kohal) {
         this.id = id;
         this.memberId = memberId;
         this.meetingId = meetingId;
@@ -46,12 +46,12 @@ public class LaitusedEntity {
     }
 
     @Ignore
-    public LaitusedEntity(int memberId, int meetingId) {
+    public LaitusedEntity(long memberId, long meetingId) {
         this.memberId = memberId;
         this.meetingId = meetingId;
     }
 
-    public int getMeetingId() {
+    public long getMeetingId() {
         return meetingId;
     }
 
@@ -104,7 +104,7 @@ public class LaitusedEntity {
         this.vabandamine = vabandamine;
     }
 
-    public int getMemberId() {
+    public long getMemberId() {
         return memberId;
     }
 
