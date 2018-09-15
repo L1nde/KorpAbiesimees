@@ -57,7 +57,6 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
         viewHolder.getLastnameField().setText(memberEntity.getLastname());
 
         if(pos == expandedPos){
-            System.out.println(pos);
             viewHolder.expandedLinear.setVisibility(View.VISIBLE);
             MemberStatistic statistic = listener.getMemberStatistic(memberEntity.getId());
             viewHolder.laitusNr.setText(String.valueOf(statistic.getLaitused()));
