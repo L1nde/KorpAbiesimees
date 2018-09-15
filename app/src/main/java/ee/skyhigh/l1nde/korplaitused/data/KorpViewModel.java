@@ -25,6 +25,7 @@ public class KorpViewModel extends AndroidViewModel {
     private MeetingsRepository meetingsRepository;
     private LiveData<List<MeetingEntity>> meetings;
 
+
     public KorpViewModel(Application application) {
         super(application);
         membersRepository = new MembersRepository(application);
@@ -51,6 +52,10 @@ public class KorpViewModel extends AndroidViewModel {
 
     public LaitusedEntity findLaitusForMemberAndMeeting(long memberId, long meetingId){
         return laitusedRepository.findLaitusForMemberAndMeeting(memberId, meetingId);
+    }
+
+    public List<LaitusedEntity> findLaitusedForMember(long memberId){
+        return laitusedRepository.findLaitusedForMember(memberId);
     }
 
     public void updateLaitus(LaitusedEntity laitusedEntity){

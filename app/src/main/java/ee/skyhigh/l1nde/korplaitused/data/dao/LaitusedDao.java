@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
@@ -14,7 +15,7 @@ import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 @Dao
 public interface LaitusedDao {
 
-    @Insert
+    @Insert()
     long insert(LaitusedEntity laitusedEntity);
 
     @Update
@@ -29,9 +30,9 @@ public interface LaitusedDao {
     @Query("SELECT * FROM laitused")
     LiveData<List<LaitusedEntity>> getAllLaitused();
 
-    @Query("SELECT * FROM laitused WHERE id=:memberId")
-    LiveData<List<LaitusedEntity>> findLaitusedForMember(final int memberId);
+    @Query("SELECT * FROM laitused WHERE memberId=:memberId")
+    List<LaitusedEntity> findLaitusedForMember(long memberId);
 
-    @Query("SELECT * FROM laitused WHERE memberId=:memberId and meetingId=:meetingId")
+    @Query("SELECT * FROM laitused WHERE memberId=:memberId and meetingId=:meetingId LIMIT 1")
     LaitusedEntity findLaitusForMemberAndMeeting(long memberId, long meetingId);
 }

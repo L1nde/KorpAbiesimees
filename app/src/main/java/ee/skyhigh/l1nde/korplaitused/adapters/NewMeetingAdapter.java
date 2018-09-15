@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ee.skyhigh.l1nde.korplaitused.listeners.ActivityListener;
+import ee.skyhigh.l1nde.korplaitused.listeners.MeetingListener;
 import ee.skyhigh.l1nde.korplaitused.R;
 import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
@@ -29,9 +29,9 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
 
     private int expandedPos = -1;
 
-    private ActivityListener listener;
+    private MeetingListener listener;
 
-    public NewMeetingAdapter(ActivityListener listener) {
+    public NewMeetingAdapter(MeetingListener listener) {
         this.listener = listener;
 
     }
@@ -40,7 +40,7 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
     @Override
     public NewMeetingAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.new_meeting_member_row_item, viewGroup, false);
-        final ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view, listener, this);
         holder.itemView.setTag(holder);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,19 +58,92 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
     }
 
 
+//    @Override
+//    public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
+//        MemberEntity memberEntity = members.get(pos);
+//        viewHolder.getTypeField().setText(memberEntity.getType());
+//        viewHolder.getFirstnameField().setText(memberEntity.getFirstname());
+//        viewHolder.getLastnameField().setText(memberEntity.getLastname());
+//
+//        final long memberId = memberEntity.getId();
+//        LaitusedEntity laitus = listener.createFindLaitus(memberId);
+//        // T2idab expanded view
+//        if (laitus.isKohal()){
+//            viewHolder.attendance.check(R.id.attendance);
+//        } else if(laitus.isVabandamine()){
+//            viewHolder.attendance.check(R.id.excuse);
+//        } else {
+//            viewHolder.attendance.check(R.id.absent);
+//        }
+//        ((CheckBox) viewHolder.expandedLinear.findViewById(R.id.late)).setChecked(laitus.isHilinemine());
+//        viewHolder.laitusNr.setText(String.valueOf(laitus.getLaitused()));
+//        viewHolder.markusNr.setText(String.valueOf(laitus.getMarkused()));
+//
+//        viewHolder.attendance.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                listener.updateAttendanceDB(memberId, ((RadioButton) viewHolder.attendance.findViewById(viewHolder.attendance.getCheckedRadioButtonId())).getText().toString());
+//            }
+//        });
+//        ((CheckBox) viewHolder.expandedLinear.findViewById(R.id.late)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                listener.updateLateDB(memberId, isChecked);
+//            }
+//        });
+//        viewHolder.laitusLinear.findViewById(R.id.addLButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listener.updateLaitusIncDB(memberId);
+//                notifyItemChanged(expandedPos);
+//            }
+//        });
+//        viewHolder.laitusLinear.findViewById(R.id.removeLButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listener.updateLaitusDecDB(memberId);
+//                notifyItemChanged(expandedPos);
+//            }
+//        });
+//        viewHolder.markusLinear.findViewById(R.id.addMButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listener.updateMarkusIncDB(memberId);
+//                notifyItemChanged(expandedPos);
+//            }
+//        });
+//        viewHolder.markusLinear.findViewById(R.id.removeMButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listener.updateMarkusDecDB(memberId);
+//                notifyItemChanged(expandedPos);
+//            }
+//        });
+//        System.out.println(memberEntity.getLastname());
+//        System.out.println(laitus);
+//        if (pos == expandedPos){
+//            viewHolder.getExpandedLinear().setVisibility(View.VISIBLE);
+//        } else {
+//            viewHolder.getExpandedLinear().setVisibility(View.GONE);
+//        }
+//    }
+
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
         MemberEntity memberEntity = members.get(pos);
-        viewHolder.getTypeField().setText(memberEntity.getType());
-        viewHolder.getFirstnameField().setText(memberEntity.getFirstname());
-        viewHolder.getLastnameField().setText(memberEntity.getLastname());
+        viewHolder.typeField.setText(memberEntity.getType());
+        viewHolder.firstnameField.setText(memberEntity.getFirstname());
+        viewHolder.lastnameField.setText(memberEntity.getLastname());
+        viewHolder.memberId = memberEntity.getId();
 
+//
+//
+//
+//        System.out.println(memberEntity.getLastname());
         if (pos == expandedPos){
-            final long memberId = memberEntity.getId();
-            viewHolder.getExpandedLinear().setVisibility(View.VISIBLE);
-            LaitusedEntity laitus = listener.createFindLaitus(memberId);
-
             // T2idab expanded view
+            final long memberId = memberEntity.getId();
+            LaitusedEntity laitus = listener.createFindLaitus(memberId);
             if (laitus.isKohal()){
                 viewHolder.attendance.check(R.id.attendance);
             } else if(laitus.isVabandamine()){
@@ -81,48 +154,11 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
             ((CheckBox) viewHolder.expandedLinear.findViewById(R.id.late)).setChecked(laitus.isHilinemine());
             viewHolder.laitusNr.setText(String.valueOf(laitus.getLaitused()));
             viewHolder.markusNr.setText(String.valueOf(laitus.getMarkused()));
-            viewHolder.attendance.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    listener.updateAttendanceDB(memberId, ((RadioButton) viewHolder.attendance.findViewById(viewHolder.attendance.getCheckedRadioButtonId())).getText().toString());
-                }
-            });
-            ((CheckBox) viewHolder.expandedLinear.findViewById(R.id.late)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    listener.updateLateDB(memberId, isChecked);
-                }
-            });
-            viewHolder.laitusLinear.findViewById(R.id.addLButton).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.updateLaitusIncDB(memberId);
-                    notifyItemChanged(expandedPos);
-                }
-            });
-            viewHolder.laitusLinear.findViewById(R.id.removeLButton).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.updateLaitusDecDB(memberId);
-                    notifyItemChanged(expandedPos);
-                }
-            });
-            viewHolder.markusLinear.findViewById(R.id.addMButton).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.updateMarkusIncDB(memberId);
-                    notifyItemChanged(expandedPos);
-                }
-            });
-            viewHolder.markusLinear.findViewById(R.id.removeMButton).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.updateMarkusDecDB(memberId);
-                    notifyItemChanged(expandedPos);
-                }
-            });
+            System.out.println(laitus);
+            // expanded view nähtavaks
+            viewHolder.expandedLinear.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.getExpandedLinear().setVisibility(View.GONE);
+            viewHolder.expandedLinear.setVisibility(View.GONE);
         }
     }
 
@@ -130,6 +166,7 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
         this.members = members;
         notifyDataSetChanged();
     }
+
 
 
     @Override
@@ -149,8 +186,13 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
         private TextView laitusNr;
         private TextView markusNr;
 
+        private long memberId = -1;
 
-        public ViewHolder(View view) {
+        private MeetingListener listener;
+        private NewMeetingAdapter adapter;
+
+
+        public ViewHolder(View view, MeetingListener listener2, final NewMeetingAdapter adapter) {
             super(view);
             typeField = view.findViewById(R.id.typeField);
             firstnameField = view.findViewById(R.id.firstnameField);
@@ -161,36 +203,65 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
             markusLinear = view.findViewById(R.id.markusLinear);
             laitusNr = view.findViewById(R.id.laitusNr);
             markusNr = view.findViewById(R.id.markusNr);
-        }
 
-        public LinearLayout getExpandedLinear() {
-            return expandedLinear;
-        }
+            this.listener = listener2;
+            this.adapter = adapter;
 
-        public TextView getTypeField() {
-            return typeField;
-        }
-
-        public LinearLayout getLaitusLinear() {
-            return laitusLinear;
-        }
-
-        public LinearLayout getMarkusLinear() {
-            return markusLinear;
-        }
-
-        public TextView getFirstnameField() {
-            return firstnameField;
-        }
-
-        public RadioGroup getAttendance() {
-            return attendance;
-        }
-
-        public TextView getLastnameField() {
-            return lastnameField;
-
+            attendance.findViewById(R.id.attendance).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.updateAttendanceDB(memberId, ((RadioButton) attendance.findViewById(attendance.getCheckedRadioButtonId())).getText().toString());
+                }
+            });
+            attendance.findViewById(R.id.excuse).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.updateAttendanceDB(memberId, ((RadioButton) attendance.findViewById(attendance.getCheckedRadioButtonId())).getText().toString());
+                }
+            });
+            attendance.findViewById(R.id.absent).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.updateAttendanceDB(memberId, ((RadioButton) attendance.findViewById(attendance.getCheckedRadioButtonId())).getText().toString());
+                }
+            });
+            ((CheckBox) expandedLinear.findViewById(R.id.late)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.updateLateDB(memberId, ((CheckBox) v).isChecked());
+                }
+            });
+            laitusLinear.findViewById(R.id.addLButton).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.updateLaitusIncDB(memberId);
+                    adapter.notifyItemChanged(getAdapterPosition());
+                }
+            });
+            laitusLinear.findViewById(R.id.removeLButton).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.updateLaitusDecDB(memberId);
+                    adapter.notifyItemChanged(getAdapterPosition());
+                }
+            });
+            markusLinear.findViewById(R.id.addMButton).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.updateMarkusIncDB(memberId);
+                    adapter.notifyItemChanged(getAdapterPosition());
+                }
+            });
+            markusLinear.findViewById(R.id.removeMButton).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.updateMarkusDecDB(memberId);
+                    adapter.notifyItemChanged(getAdapterPosition());
+                }
+            });
         }
     }
+
+
 
 }

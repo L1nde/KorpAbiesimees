@@ -3,7 +3,6 @@ package ee.skyhigh.l1nde.korplaitused.data.repositories;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
-import android.os.Debug;
 import android.util.Log;
 
 import java.util.List;
@@ -38,6 +37,15 @@ public class LaitusedRepository {
         return null;
     }
 
+    public List<LaitusedEntity> findLaitusedForMember(long memberId){
+        try {
+            return new memberSelectAsyncTask(memberId, laitusedDao).execute().get();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.e(this.getClass().getSimpleName(), "Selective laitus error", e);
+        }
+        return null;
+    }
+
     public Long insert(LaitusedEntity laitusedEntity){
         try {
             return new insertAsyncTask(laitusedDao).execute(laitusedEntity).get();
@@ -45,7 +53,6 @@ public class LaitusedRepository {
             Log.e(this.getClass().getSimpleName(), "Insert error", e);
         }
         return null;
-
     }
 
     public void update(LaitusedEntity laitusedEntity){
@@ -83,6 +90,23 @@ public class LaitusedRepository {
         @Override
         protected LaitusedEntity doInBackground(Void... voids) {
             return laitusedDao.findLaitusForMemberAndMeeting(memberId, meetingId);
+        }
+    }
+
+    private static class memberSelectAsyncTask extends AsyncTask<Void, Void, List<LaitusedEntity>>{
+
+        private long memberId;
+
+        private LaitusedDao laitusedDao;
+
+        public memberSelectAsyncTask(long memberId, LaitusedDao laitusedDao) {
+            this.memberId = memberId;
+            this.laitusedDao = laitusedDao;
+        }
+
+        @Override
+        protected List<LaitusedEntity> doInBackground(Void... voids) {
+            return laitusedDao.findLaitusedForMember(memberId);
         }
     }
 

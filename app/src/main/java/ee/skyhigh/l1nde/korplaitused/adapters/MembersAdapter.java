@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ee.skyhigh.l1nde.korplaitused.MemberStatistic;
 import ee.skyhigh.l1nde.korplaitused.R;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
+import ee.skyhigh.l1nde.korplaitused.listeners.MemberListener;
 
 
 public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHolder> {
@@ -20,7 +22,10 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
 
     private int expandedPos = -1;
 
-    public MembersAdapter() {
+    private MemberListener listener;
+
+    public MembersAdapter(MemberListener listener) {
+        this.listener = listener;
 
     }
 
@@ -37,7 +42,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
                 if (expandedPos >= 0){
                     notifyItemChanged(expandedPos);
                 }
-                expandedPos = viewHolder.getPosition(); //todo something else
+                expandedPos = viewHolder.getAdapterPosition();
                 notifyItemChanged(expandedPos);
             }
         });
@@ -52,7 +57,13 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
         viewHolder.getLastnameField().setText(memberEntity.getLastname());
 
         if(pos == expandedPos){
+            System.out.println(pos);
             viewHolder.expandedLinear.setVisibility(View.VISIBLE);
+            MemberStatistic statistic = listener.getMemberStatistic(memberEntity.getId());
+            viewHolder.laitusNr.setText(String.valueOf(statistic.getLaitused()));
+            viewHolder.markusNr.setText(String.valueOf(statistic.getMarkused()));
+            viewHolder.attendanceNr.setText(String.valueOf(statistic.getAttendance()));
+            viewHolder.lateNr.setText(String.valueOf(statistic.getLate()));
         } else {
             viewHolder.expandedLinear.setVisibility(View.GONE);
         }
@@ -74,6 +85,10 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
         private TextView firstnameField;
         private TextView lastnameField;
         private LinearLayout expandedLinear;
+        private TextView attendanceNr;
+        private TextView laitusNr;
+        private TextView markusNr;
+        private TextView lateNr;
 
         public ViewHolder(View view) {
             super(view);
@@ -81,6 +96,10 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
             firstnameField = view.findViewById(R.id.firstnameField);
             lastnameField = view.findViewById(R.id.lastnameField);
             expandedLinear = view.findViewById(R.id.expandedLinear);
+            attendanceNr = view.findViewById(R.id.attendanceNr);
+            laitusNr = view.findViewById(R.id.laitusNr);
+            markusNr = view.findViewById(R.id.markusNr);
+            lateNr = view.findViewById(R.id.lateNr);
         }
 
         public LinearLayout getExpandedLinear() {

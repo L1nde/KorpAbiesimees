@@ -7,21 +7,9 @@
     android:orientation="vertical"
     tools:context=".activities.NewMeeting">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/membersList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/membersList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="saveAttendance"
-        android:text="Salvesta" />
 </LinearLayout>

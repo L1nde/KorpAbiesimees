@@ -7,7 +7,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "laitused", foreignKeys = {@ForeignKey(entity = MemberEntity.class, parentColumns = "id", childColumns = "memberId"), @ForeignKey(entity = MeetingEntity.class, parentColumns = "id", childColumns = "meetingId")}, indices = {@Index("memberId"), @Index("meetingId")})
+@Entity(tableName = "laitused",foreignKeys = {@ForeignKey(entity = MemberEntity.class, parentColumns = "id", childColumns = "memberId", onDelete = ForeignKey.CASCADE), @ForeignKey(entity = MeetingEntity.class, parentColumns = "id", childColumns = "meetingId", onDelete = ForeignKey.CASCADE)}, indices = {@Index("memberId"), @Index("meetingId")})
 public class LaitusedEntity {
 
     @PrimaryKey(autoGenerate = true)

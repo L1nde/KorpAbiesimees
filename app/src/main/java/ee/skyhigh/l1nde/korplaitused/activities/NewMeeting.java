@@ -17,9 +17,9 @@ import ee.skyhigh.l1nde.korplaitused.adapters.NewMeetingAdapter;
 import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
-import ee.skyhigh.l1nde.korplaitused.listeners.ActivityListener;
+import ee.skyhigh.l1nde.korplaitused.listeners.MeetingListener;
 
-public class NewMeeting extends AppCompatActivity implements ActivityListener {
+public class NewMeeting extends AppCompatActivity implements MeetingListener {
 
     private KorpViewModel korpViewModel;
 
@@ -56,20 +56,25 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener {
             case "Kohal":
                 laitus.setKohal(true);
                 laitus.setVabandamine(false);
-                break;
+                korpViewModel.updateLaitus(laitus);
+                Log.i(this.getLocalClassName(), "Attendance updated(Kohal) " + memberId);
+                return;
             case "Vabandas":
                 laitus.setKohal(false);
                 laitus.setVabandamine(true);
-                break;
+                korpViewModel.updateLaitus(laitus);
+                Log.i(this.getLocalClassName(), "Attendance updated(Vabandamine) " + memberId);
+                return;
             case "Puudus":
                 laitus.setKohal(false);
                 laitus.setVabandamine(false);
-                break;
+                korpViewModel.updateLaitus(laitus);
+                Log.i(this.getLocalClassName(), "Attendance updated(Puudumine) " + memberId);
+                return;
             default:
-                Log.e(this.getLocalClassName(), "Attendance error");
+                Log.e(this.getLocalClassName(), "Attendance error " + memberId);
         }
-        korpViewModel.updateLaitus(laitus);
-        Log.i(this.getLocalClassName(), "Attendance updated");
+        Log.e(this.getLocalClassName(), "Attendance error " + memberId);
     }
 
     @Override
@@ -77,7 +82,7 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener {
         LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setHilinemine(checked);
         korpViewModel.updateLaitus(laitus);
-        Log.i(this.getLocalClassName(), "Late updated");
+        Log.i(this.getLocalClassName(), "Late updated " + memberId);
     }
 
     @Override
@@ -85,7 +90,7 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener {
         LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setLaitused(laitus.getLaitused() + 1);
         korpViewModel.updateLaitus(laitus);
-        Log.i(this.getLocalClassName(), "Laitus+ updated");
+        Log.i(this.getLocalClassName(), "Laitus+ updated " + memberId);
     }
 
     @Override
@@ -93,7 +98,7 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener {
         LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setLaitused(laitus.getLaitused() - 1);
         korpViewModel.updateLaitus(laitus);
-        Log.i(this.getLocalClassName(), "Laitus- updated");
+        Log.i(this.getLocalClassName(), "Laitus- updated " + memberId);
     }
 
     @Override
@@ -101,7 +106,7 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener {
         LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setMarkused(laitus.getMarkused() + 1);
         korpViewModel.updateLaitus(laitus);
-        Log.i(this.getLocalClassName(), "Markus+ updated");
+        Log.i(this.getLocalClassName(), "Markus+ updated " + memberId);
 
     }
 
@@ -110,7 +115,7 @@ public class NewMeeting extends AppCompatActivity implements ActivityListener {
         LaitusedEntity laitus = createFindLaitus(memberId);
         laitus.setMarkused(laitus.getMarkused() - 1);
         korpViewModel.updateLaitus(laitus);
-        Log.i(this.getLocalClassName(), "Markus- updated");
+        Log.i(this.getLocalClassName(), "Markus- updated " + memberId);
 
     }
 
