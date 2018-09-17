@@ -67,6 +67,26 @@ public class MemberEntity {
         return away;
     }
 
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setTartu(boolean tartu) {
+        this.tartu = tartu;
+    }
+
+    public void setAway(boolean away) {
+        this.away = away;
+    }
+
     @Override
     public String toString() {
         return "MemberEntity{" +

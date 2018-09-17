@@ -21,7 +21,7 @@
         <activity android:name=".activities.AddMember" />
         <activity android:name=".activities.AddMeeting" />
         <activity android:name=".activities.NewMeeting" />
-        <activity android:name=".activities.SingleMember"></activity>
+        <activity android:name=".activities.EditMember"></activity>
     </application>
 
 </manifest>

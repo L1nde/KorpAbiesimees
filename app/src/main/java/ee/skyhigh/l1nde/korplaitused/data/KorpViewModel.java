@@ -62,6 +62,16 @@ public class KorpViewModel extends AndroidViewModel {
         laitusedRepository.update(laitusedEntity);
     }
 
+    public void updateMember(MemberEntity memberEntity){
+        membersRepository.update(memberEntity);
+    }
+
+    public MemberEntity findMember(long id){
+        return membersRepository.findMember(id);
+    }
+
+
+
     public long insertMember(MemberEntity memberEntity) {
         return membersRepository.insert(memberEntity);
     }

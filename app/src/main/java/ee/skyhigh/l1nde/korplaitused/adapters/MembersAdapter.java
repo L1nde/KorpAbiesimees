@@ -1,5 +1,6 @@
 package ee.skyhigh.l1nde.korplaitused.adapters;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import ee.skyhigh.l1nde.korplaitused.MemberStatistic;
 import ee.skyhigh.l1nde.korplaitused.R;
+import ee.skyhigh.l1nde.korplaitused.activities.EditMember;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 import ee.skyhigh.l1nde.korplaitused.listeners.MemberListener;
 
@@ -51,7 +53,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int pos) {
-        MemberEntity memberEntity = members.get(pos);
+        final MemberEntity memberEntity = members.get(pos);
         viewHolder.getTypeField().setText(memberEntity.getType());
         viewHolder.getFirstnameField().setText(memberEntity.getFirstname());
         viewHolder.getLastnameField().setText(memberEntity.getLastname());
@@ -64,6 +66,15 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
             viewHolder.privateNr.setText(String.valueOf(statistic.getAttendanceP() + "/" + statistic.getTotalP()));
             viewHolder.generalNr.setText(String.valueOf(statistic.getAttendanceG() + "/" + statistic.getTotalG()));
             viewHolder.lateNr.setText(String.valueOf(statistic.getLate()));
+            viewHolder.expandedLinear.findViewById(R.id.editButton).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(listener.getContext(), EditMember.class);
+                    intent.putExtra("memberId", memberEntity.getId());
+                    listener.getContext().startActivity(intent);
+
+                }
+            });
         } else {
             viewHolder.expandedLinear.setVisibility(View.GONE);
         }

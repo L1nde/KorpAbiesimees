@@ -2,6 +2,7 @@ package ee.skyhigh.l1nde.korplaitused.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
+import ee.skyhigh.l1nde.korplaitused.listeners.ContextListener;
 import ee.skyhigh.l1nde.korplaitused.listeners.MemberListener;
 
 public class Members extends AppCompatActivity implements MemberListener{
@@ -113,5 +115,8 @@ public class Members extends AppCompatActivity implements MemberListener{
     }
 
 
-
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

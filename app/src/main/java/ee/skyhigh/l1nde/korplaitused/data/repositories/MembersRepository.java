@@ -37,6 +37,20 @@ public class MembersRepository {
         return null;
 
     }
+
+    public void update(MemberEntity memberEntity){
+        new updateAsyncTask(memberDao).execute(memberEntity);
+    }
+
+    public MemberEntity findMember(long id){
+        try {
+            return new selectAsyncTask(memberDao).execute(id).get();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.e(this.getClass().getSimpleName(), "Member select error", e);
+        }
+        return null;
+    }
+
     private static class insertAsyncTask extends AsyncTask<MemberEntity, Void, Long>{
 
         private MemberDao memberDao;
@@ -48,6 +62,35 @@ public class MembersRepository {
         @Override
         protected Long doInBackground(MemberEntity... memberEntities) {
             return memberDao.insert(memberEntities[0]);
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<MemberEntity, Void, Void>{
+
+        private MemberDao memberDao;
+
+        updateAsyncTask(MemberDao memberDao){
+            this.memberDao = memberDao;
+        }
+
+        @Override
+        protected Void doInBackground(MemberEntity... memberEntities) {
+            memberDao.update(memberEntities[0]);
+            return null;
+        }
+    }
+
+    private static class selectAsyncTask extends AsyncTask<Long, Void, MemberEntity>{
+
+        private MemberDao memberDao;
+
+        selectAsyncTask(MemberDao memberDao){
+            this.memberDao = memberDao;
+        }
+
+        @Override
+        protected MemberEntity doInBackground(Long... ids) {
+            return memberDao.findMember(ids[0]);
         }
     }
 

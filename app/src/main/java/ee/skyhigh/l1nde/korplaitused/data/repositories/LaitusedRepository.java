@@ -63,7 +63,7 @@ public class LaitusedRepository {
 
         private LaitusedDao laitusedDao;
 
-        public updateAsyncTask(LaitusedDao laitusedDao) {
+        updateAsyncTask(LaitusedDao laitusedDao) {
             this.laitusedDao = laitusedDao;
         }
 
@@ -81,7 +81,7 @@ public class LaitusedRepository {
 
         private LaitusedDao laitusedDao;
 
-        public selectAsyncTask(long memberId, long meetingId, LaitusedDao laitusedDao) {
+        selectAsyncTask(long memberId, long meetingId, LaitusedDao laitusedDao) {
             this.memberId = memberId;
             this.meetingId = meetingId;
             this.laitusedDao = laitusedDao;
@@ -99,7 +99,7 @@ public class LaitusedRepository {
 
         private LaitusedDao laitusedDao;
 
-        public memberSelectAsyncTask(long memberId, LaitusedDao laitusedDao) {
+        memberSelectAsyncTask(long memberId, LaitusedDao laitusedDao) {
             this.memberId = memberId;
             this.laitusedDao = laitusedDao;
         }

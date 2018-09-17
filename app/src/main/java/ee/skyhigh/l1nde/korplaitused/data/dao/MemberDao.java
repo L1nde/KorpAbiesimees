@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -19,12 +20,15 @@ public interface MemberDao {
     @Delete
     void delete(MemberEntity memberEntity);
 
+    @Update
+    void update(MemberEntity memberEntity);
+
+    @Query("SELECT * FROM member where id=:memberId")
+    MemberEntity findMember(long memberId);
+
     @Query("delete from member")
     void deleteAll();
 
     @Query("SELECT * FROM member")
     LiveData<List<MemberEntity>> getAllMembers();
-
-//    @Query("SELECT * FROM member WHERE ")
-//    LiveData<MemberEntity> getMemberId(String type, String firstname, String lastname);
 }
