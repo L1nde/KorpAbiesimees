@@ -23,47 +23,83 @@
         android:hint="Perenimi"
         android:inputType="textPersonName" />
 
-    <RadioGroup
-        android:id="@+id/statusGroup"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/ksvRadio"
+        <RadioGroup
+            android:id="@+id/statusGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/ksvRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="ksv!" />
+
+            <RadioButton
+                android:id="@+id/bvilRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="bvil!" />
+
+            <RadioButton
+                android:id="@+id/rebRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="reb!" />
+
+            <RadioButton
+                android:id="@+id/vilRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="vil!" />
+
+            <RadioButton
+                android:id="@+id/lvilRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="lvil!" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/konventGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/tartuRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Tartu" />
+
+            <RadioButton
+                android:id="@+id/tallinnRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tallinn" />
+
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/awayButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ksv!" />
-
-        <RadioButton
-            android:id="@+id/bvilRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="bvil!" />
-
-        <RadioButton
-            android:id="@+id/rebRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="reb!" />
-
-        <RadioButton
-            android:id="@+id/vilRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="vil!" />
-
-        <RadioButton
-            android:id="@+id/lvilRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="lvil!" />
-
-    </RadioGroup>
+            android:text="Eemalviibija" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/saveButton"

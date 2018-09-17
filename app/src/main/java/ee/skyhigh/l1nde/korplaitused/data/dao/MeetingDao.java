@@ -25,5 +25,4 @@ public interface MeetingDao {
     @Query("SELECT * FROM meetings")
     LiveData<List<MeetingEntity>> getAllMeetings();
 
-
 }

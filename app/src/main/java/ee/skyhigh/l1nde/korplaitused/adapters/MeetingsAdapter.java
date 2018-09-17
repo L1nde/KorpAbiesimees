@@ -38,7 +38,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
-        MeetingEntity meetingEntity = meetings.get(i);
+        final MeetingEntity meetingEntity = meetings.get(i);
         viewHolder.getTypeField().setText(meetingEntity.getType());
         viewHolder.getDateField().setText(meetingEntity.getDate());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +46,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ViewHo
             public void onClick(View v) {
                 Intent intent = new Intent(contextListener.getContext(), NewMeeting.class);
                 intent.putExtra("meetingId", meetings.get(i).getId());
+                intent.putExtra("title", meetings.get(i).getType() + " " + meetings.get(i).getDate());
                 contextListener.getContext().startActivity(intent);
             }
         });

@@ -19,18 +19,28 @@ public class MemberEntity {
     @ColumnInfo(name = "type")
     private String type;
 
-    public MemberEntity(long id, String firstname, String lastname, String type) {
+    @ColumnInfo(name = "tartu")
+    private boolean tartu;
+
+    @ColumnInfo(name = "away")
+    private boolean away;
+
+    public MemberEntity(long id, String firstname, String lastname, String type, boolean tartu, boolean away) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.type = type;
+        this.tartu = tartu;
+        this.away = away;
     }
 
     @Ignore
-    public MemberEntity(String firstname, String lastname, String type) {
+    public MemberEntity(String firstname, String lastname, String type, boolean tartu, boolean away) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.type = type;
+        this.tartu = tartu;
+        this.away = away;
     }
 
     public long getId() {
@@ -49,6 +59,14 @@ public class MemberEntity {
         return type;
     }
 
+    public boolean isTartu() {
+        return tartu;
+    }
+
+    public boolean isAway() {
+        return away;
+    }
+
     @Override
     public String toString() {
         return "MemberEntity{" +
@@ -56,6 +74,8 @@ public class MemberEntity {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", type='" + type + '\'' +
+                ", tartu=" + tartu +
+                ", away=" + away +
                 '}';
     }
 }

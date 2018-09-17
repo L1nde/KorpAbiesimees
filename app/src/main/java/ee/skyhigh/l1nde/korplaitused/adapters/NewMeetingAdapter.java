@@ -148,7 +148,7 @@ public class NewMeetingAdapter extends RecyclerView.Adapter<NewMeetingAdapter.Vi
                     listener.updateAttendanceDB(memberId, ((RadioButton) attendance.findViewById(attendance.getCheckedRadioButtonId())).getText().toString());
                 }
             });
-            ((CheckBox) expandedLinear.findViewById(R.id.late)).setOnClickListener(new View.OnClickListener() {
+            expandedLinear.findViewById(R.id.late).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.updateLateDB(memberId, ((CheckBox) v).isChecked());

@@ -11,7 +11,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class LaitusedEntity {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
     @ColumnInfo(name = "memberId")
     private long memberId;
@@ -34,7 +34,7 @@ public class LaitusedEntity {
     @ColumnInfo(name = "kohal")
     private boolean kohal = false;
 
-    public LaitusedEntity(int id, long memberId, long meetingId, int laitused, int markused, boolean hilinemine, boolean vabandamine, boolean kohal) {
+    public LaitusedEntity(long id, long memberId, long meetingId, int laitused, int markused, boolean hilinemine, boolean vabandamine, boolean kohal) {
         this.id = id;
         this.memberId = memberId;
         this.meetingId = meetingId;
@@ -92,7 +92,7 @@ public class LaitusedEntity {
         this.kohal = kohal;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

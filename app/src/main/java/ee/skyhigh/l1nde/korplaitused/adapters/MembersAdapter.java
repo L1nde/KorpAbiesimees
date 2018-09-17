@@ -61,7 +61,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
             MemberStatistic statistic = listener.getMemberStatistic(memberEntity.getId());
             viewHolder.laitusNr.setText(String.valueOf(statistic.getLaitused()));
             viewHolder.markusNr.setText(String.valueOf(statistic.getMarkused()));
-            viewHolder.attendanceNr.setText(String.valueOf(statistic.getAttendance()));
+            viewHolder.privateNr.setText(String.valueOf(statistic.getAttendanceP() + "/" + statistic.getTotalP()));
+            viewHolder.generalNr.setText(String.valueOf(statistic.getAttendanceG() + "/" + statistic.getTotalG()));
             viewHolder.lateNr.setText(String.valueOf(statistic.getLate()));
         } else {
             viewHolder.expandedLinear.setVisibility(View.GONE);
@@ -84,7 +85,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
         private TextView firstnameField;
         private TextView lastnameField;
         private LinearLayout expandedLinear;
-        private TextView attendanceNr;
+        private TextView privateNr;
+        private TextView generalNr;
         private TextView laitusNr;
         private TextView markusNr;
         private TextView lateNr;
@@ -95,7 +97,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
             firstnameField = view.findViewById(R.id.firstnameField);
             lastnameField = view.findViewById(R.id.lastnameField);
             expandedLinear = view.findViewById(R.id.expandedLinear);
-            attendanceNr = view.findViewById(R.id.attendanceNr);
+            privateNr = view.findViewById(R.id.privateNr);
+            generalNr = view.findViewById(R.id.generalNr);
             laitusNr = view.findViewById(R.id.laitusNr);
             markusNr = view.findViewById(R.id.markusNr);
             lateNr = view.findViewById(R.id.lateNr);

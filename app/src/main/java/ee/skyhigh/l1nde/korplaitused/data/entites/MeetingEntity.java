@@ -49,4 +49,13 @@ public class MeetingEntity {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "MeetingEntity{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

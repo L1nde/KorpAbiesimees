@@ -16,7 +16,7 @@ import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 
 
-@Database(entities = {MemberEntity.class, LaitusedEntity.class, MeetingEntity.class}, version = 6)
+@Database(entities = {MemberEntity.class, LaitusedEntity.class, MeetingEntity.class}, version = 7)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -42,7 +42,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public  void onOpen(@NonNull SupportSQLiteDatabase db){
             super.onOpen(db);
-//            new PopulateDBAsync(INSTANCE).execute();
+            new PopulateDBAsync(INSTANCE).execute(); //todo remove
         }
     };
 
@@ -74,40 +74,40 @@ public abstract class AppDatabase extends RoomDatabase {
 
         private void populateMembers(){
             // ksv!
-            memberDao.insert(new MemberEntity("Einar", "Linde", "ksv!"));
-            memberDao.insert(new MemberEntity("Krister Aleks", "Kasemaa", "ksv!"));
-            memberDao.insert(new MemberEntity("Kristo", "Kesler", "ksv!"));
-            memberDao.insert(new MemberEntity("Lauri", "Leiten", "ksv!"));
-            memberDao.insert(new MemberEntity("Kaarel", "Viikna", "ksv!"));
-            memberDao.insert(new MemberEntity("Evar", "Raid", "ksv!"));
-            memberDao.insert(new MemberEntity("Jürgen", "Reimus", "ksv!"));
-            memberDao.insert(new MemberEntity("Hannes", "Saariste", "ksv!"));
-            memberDao.insert(new MemberEntity("Taavi", "Unt", "ksv!"));
-            memberDao.insert(new MemberEntity("Andreas", "Rebane", "ksv!"));
-            memberDao.insert(new MemberEntity("Jan", "Šinkejev", "ksv!"));
-            memberDao.insert(new MemberEntity("Toomas", "Tarmu", "ksv!"));
-            memberDao.insert(new MemberEntity("Mehis", "Malts", "ksv!"));
-            memberDao.insert(new MemberEntity("Tenno", "Mätlik", "ksv!"));
-            memberDao.insert(new MemberEntity("Sergei", "Malinovski", "ksv!"));
-            memberDao.insert(new MemberEntity("Arle", "Kõrkjas", "ksv!"));
-            memberDao.insert(new MemberEntity("Velis", "Malts", "ksv!"));
-            memberDao.insert(new MemberEntity("Marko", "Tiirmaa", "ksv!"));
-            memberDao.insert(new MemberEntity("kaur", "Siilbek", "ksv!"));
-            memberDao.insert(new MemberEntity("Ardi", "Siilaberg", "ksv!"));
-            memberDao.insert(new MemberEntity("Bruno", "Takkel", "ksv!"));
-            memberDao.insert(new MemberEntity("Hannes", "Heinsar", "ksv!"));
-            memberDao.insert(new MemberEntity("Tarmi", "Hausenberg", "ksv!"));
-            memberDao.insert(new MemberEntity("Peeter", "Ever", "ksv!"));
+            memberDao.insert(new MemberEntity("Einar", "Linde", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Krister Aleks", "Kasemaa", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Kristo", "Kesler", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Lauri", "Leiten", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Kaarel", "Viikna", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Evar", "Raid", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Jürgen", "Reimus", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Hannes", "Saariste", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Taavi", "Unt", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Andreas", "Rebane", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Jan", "Šinkejev", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Toomas", "Tarmu", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Mehis", "Malts", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Tenno", "Mätlik", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Sergei", "Malinovski", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Arle", "Kõrkjas", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Velis", "Malts", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Marko", "Tiirmaa", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("kaur", "Siilbek", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Ardi", "Siilaberg", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Bruno", "Takkel", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Hannes", "Heinsar", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Tarmi", "Hausenberg", "ksv!", true, false));
+            memberDao.insert(new MemberEntity("Peeter", "Ever", "ksv!", true, false));
 
             // reb!
-            memberDao.insert(new MemberEntity("Teodor", "Leheste", "reb!"));
-            memberDao.insert(new MemberEntity("Karel", "Paan", "reb!"));
-            memberDao.insert(new MemberEntity("Lennart", "Maala", "reb!"));
-            memberDao.insert(new MemberEntity("Argo", "Jõesoo", "reb!"));
+            memberDao.insert(new MemberEntity("Teodor", "Leheste", "reb!", true, false));
+            memberDao.insert(new MemberEntity("Karel", "Paan", "reb!", true, false));
+            memberDao.insert(new MemberEntity("Lennart", "Maala", "reb!", true, false));
+            memberDao.insert(new MemberEntity("Argo", "Jõesoo", "reb!", true, false));
 
             // bvil!
 
-            memberDao.insert(new MemberEntity("Andres", "Ervin", "bvil!"));
+            memberDao.insert(new MemberEntity("Andres", "Ervin", "bvil!", true, false));
 
 
         }

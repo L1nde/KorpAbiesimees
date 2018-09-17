@@ -56,6 +56,7 @@ public class AddMeeting extends AppCompatActivity {
             loadAllMembersLaitused(id);
             Intent intent = new Intent(this, NewMeeting.class);
             intent.putExtra("meetingId", id);
+            intent.putExtra("title", meetingEntity.getType() + " " + meetingEntity.getDate());
             startActivity(intent);
             finish();
         }
@@ -65,8 +66,9 @@ public class AddMeeting extends AppCompatActivity {
 
 
         for (MemberEntity entity : members) {
-            korpViewModel.insertLaitus(new LaitusedEntity(entity.getId(), meetingId));
+            if (entity.getType().equals("ksv!") && entity.isTartu() && !entity.isAway())
+                korpViewModel.insertLaitus(new LaitusedEntity(entity.getId(), meetingId));
         }
-        Log.i(this.getLocalClassName(), "Created laitused for everyone!");
+        Log.i(this.getLocalClassName(), "Created laitused for ksv!");
     }
 }

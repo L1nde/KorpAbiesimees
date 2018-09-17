@@ -56,14 +56,28 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/attendanceText"
+                android:id="@+id/privateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Puudumisi: " />
+                android:text="Erakoosolek: " />
 
             <TextView
-                android:id="@+id/attendanceNr"
+                android:id="@+id/privateNr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/generalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Üldkoosolek: " />
+
+            <TextView
+                android:id="@+id/generalNr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

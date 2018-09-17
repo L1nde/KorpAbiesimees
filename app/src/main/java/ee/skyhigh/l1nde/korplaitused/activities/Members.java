@@ -18,12 +18,15 @@ import ee.skyhigh.l1nde.korplaitused.R;
 import ee.skyhigh.l1nde.korplaitused.adapters.MembersAdapter;
 import ee.skyhigh.l1nde.korplaitused.data.KorpViewModel;
 import ee.skyhigh.l1nde.korplaitused.data.entites.LaitusedEntity;
+import ee.skyhigh.l1nde.korplaitused.data.entites.MeetingEntity;
 import ee.skyhigh.l1nde.korplaitused.data.entites.MemberEntity;
 import ee.skyhigh.l1nde.korplaitused.listeners.MemberListener;
 
 public class Members extends AppCompatActivity implements MemberListener{
 
     private KorpViewModel korpViewModel;
+
+    private List<MeetingEntity> meetings = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,13 @@ public class Members extends AppCompatActivity implements MemberListener{
                 adapter.setMembers(memberEntities);
             }
         });
+
+        korpViewModel.getMeetings().observe(this, new Observer<List<MeetingEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<MeetingEntity> meetingEntities) {
+                meetings = meetingEntities;
+            }
+        });
     }
 
     public void addMember(View view){
@@ -54,16 +64,35 @@ public class Members extends AppCompatActivity implements MemberListener{
     @Override
     public MemberStatistic getMemberStatistic(long memberId){
         List<LaitusedEntity> laitused  = korpViewModel.findLaitusedForMember(memberId);
+        int totalP = 0;
+        int totalG = 0;
+        for (MeetingEntity meeting : meetings) {
+            if (meeting.getType().equals("Erakoosolek"))
+                totalP++;
+            else
+                totalG++;
+        }
+
         int laitusedNr = 0;
         int markusedNr = 0;
-        int absent = 0;
+        int attendedP = 0;
+        int attendedG = 0;
         int late = 0;
         for (LaitusedEntity entity : laitused) {
+            boolean isPrivate = isMeetingTypePrivate(entity.getMeetingId());
             if (!entity.isKohal()){
-                if (!entity.isVabandamine()){
-                    laitusedNr++;
-                    absent++;
+                if (isPrivate){
+                    if (!entity.isVabandamine()){
+                        laitusedNr++;
+                    }
                 }
+            } else {
+                if (isPrivate){
+                    attendedP++;
+                } else {
+                    attendedG++;
+                }
+
             }
             if (entity.isHilinemine()){
                 late++;
@@ -71,8 +100,18 @@ public class Members extends AppCompatActivity implements MemberListener{
             laitusedNr += entity.getLaitused() + entity.getMarkused() / 3;
             markusedNr += entity.getMarkused() % 3;
         }
-        return new MemberStatistic(laitusedNr, markusedNr, absent, late);
+        return new MemberStatistic(laitusedNr, markusedNr, attendedP, attendedG, late, totalP, totalG);
     }
+
+    private boolean isMeetingTypePrivate(long id){
+        for (MeetingEntity meeting : meetings) {
+            if (meeting.getId() == id){
+                return meeting.getType().equals("Erakoosolek");
+            }
+        }
+        return false;
+    }
+
 
 
 }

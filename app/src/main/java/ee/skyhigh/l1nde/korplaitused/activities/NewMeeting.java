@@ -32,6 +32,7 @@ public class NewMeeting extends AppCompatActivity implements MeetingListener {
 
         Intent intent = getIntent();
         meetingId = intent.getLongExtra("meetingId", -1);
+        setTitle(intent.getStringExtra("title"));
 
         RecyclerView membersList = findViewById(R.id.membersList);
         membersList.setHasFixedSize(true);

@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,8 +35,12 @@ public class AddMember extends AppCompatActivity {
 
         RadioButton checkedRadio = findViewById(statusGroup.getCheckedRadioButtonId());
 
+        RadioButton tartuRadio = findViewById(R.id.tartuRadio);
+
+        CheckBox away = findViewById(R.id.awayButton);
+
         if (!firstname.getText().toString().isEmpty() && !lastname.getText().toString().isEmpty() && checkedRadio != null){
-            korpViewModel.insertMember(new MemberEntity(firstname.getText().toString(), lastname.getText().toString(), checkedRadio.getText().toString()));
+            korpViewModel.insertMember(new MemberEntity(firstname.getText().toString(), lastname.getText().toString(), checkedRadio.getText().toString(), tartuRadio.isChecked(), away.isChecked()));
             finish();
         }
     }
